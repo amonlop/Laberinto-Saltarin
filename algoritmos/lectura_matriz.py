@@ -1,12 +1,13 @@
 from algoritmos.Nodo import Nodo
-from algoritmos.b_costo_uniforme import busqueda_costo_uniforme
-from algoritmos.b_profundidad import busqueda_profundidad
+from algoritmos.b_costo_uniforme import *
+from algoritmos.b_profundidad import *
 from interfaz_g import pantalla
 
 def construir_grafo(nombre_archivo):
     #laberintos = []
 
     with open(nombre_archivo, "r") as archivo:
+        i = 1
         while True:
             
             linea = archivo.readline().strip()
@@ -23,7 +24,6 @@ def construir_grafo(nombre_archivo):
             for fila in range(m):
                 #se crea una lista de nodos y se añaden a la matriz
                 linea2= archivo.readline().strip().split()
-                print(linea2)
                 valores = list(map(int, linea2))
                 if len(valores) != n:
                     raise ValueError(f"Error en la lectura: se esperaban {n} columnas, pero se obtuvo {len(valores)}")
@@ -35,6 +35,7 @@ def construir_grafo(nombre_archivo):
             for fila in range(m):
                 for col in range(n):
                     nodo = matriz[fila][col]
+                    #print("(",nodo.fila, nodo.col, nodo.valor, ")")
                     salto = nodo.valor
 
                     # Movimientos permitidos: izquierda, derecha, arriba, abajo
@@ -46,19 +47,22 @@ def construir_grafo(nombre_archivo):
                     #se añaden solo los vecinos dentro del rango de movimiento posible
                     for nueva_fila, nueva_col in posibles_movimientos:
                         if 0 <= nueva_fila < m and 0 <= nueva_col < n:
-                            nodo.agregar_vecino(matriz[nueva_fila][nueva_col])
+                            vecino = matriz[nueva_fila][nueva_col]
+                            #print("vecino de ", "(",nodo.fila, nodo.col, nodo.valor, ") es: ", "(",vecino.fila, vecino.col, vecino.valor, ")")
+                            nodo.agregar_vecino(vecino)
 
             nodo_inicio = matriz[inicio_fila][inicio_col]
             nodo_destino = matriz[destino_fila][destino_col]
-
-            camino_ucs = busqueda_costo_uniforme(nodo_inicio, nodo_destino)
-            camino_dfs = busqueda_profundidad(nodo_inicio, nodo_destino)
             
-            camino = min(camino_dfs, camino_ucs)
-            
-            if camino:
+            costo_camino_ucs, camino_ucs = busqueda_costo_uniforme(nodo_inicio, nodo_destino)
+            costo_camino_dfs, camino_dfs = busqueda_profundidad(nodo_inicio, nodo_destino)
+            print("Laberinto #",i)
+            print("costo camino ucs: ", costo_camino_ucs, "camino_ucs: ", camino_ucs)
+            print("costo camino dfs: ", costo_camino_dfs, "camino_dfs: ", camino_dfs)
+            i += 1
+            """ if camino:
                 print(camino)
-                #pantalla.iniciar_pantalla(matriz, camino, nodo_inicio, nodo_destino)
+                #pantalla.iniciar_pantalla()
             else:
-                print("No hay solución")
-                
+                print("No hay solución") """
+  

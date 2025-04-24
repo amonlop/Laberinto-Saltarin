@@ -7,6 +7,3 @@ class Nodo:
 
     def agregar_vecino(self, nodo):
         self.vecinos.append(nodo)
-
-    def __repr__(self):
-        return f"Nodo({self.fila}, {self.col}, valor={self.valor})"
