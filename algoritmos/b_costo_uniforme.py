@@ -16,10 +16,6 @@ def busqueda_costo_uniforme(inicio, destino):
         #min-heap, se extrae el nodo con menor costo primero
         costo_acumulado, _id_, nodo_actual, camino = heapq.heappop(cola_prioridad)
 
-        #If we reached the goal, return the total cost and the path
-        if nodo_actual == destino:
-            return costo_acumulado, camino  
-
         #si es que ya se visitó este nodo con menor costo, continue
         if nodo_actual in visitados and costo_acumulado >= visitados[nodo_actual]:
             continue
@@ -27,6 +23,10 @@ def busqueda_costo_uniforme(inicio, destino):
         # costo mínimo hasta el nodo y se añade al camino
         visitados[nodo_actual] = costo_acumulado
         camino = camino + [(nodo_actual.fila, nodo_actual.col)]
+        
+        #If we reached the goal, return the total cost and the path
+        if nodo_actual == destino:
+            return costo_acumulado, camino
 
         # expansión de vecinos
         for vecino in nodo_actual.vecinos:

@@ -4,10 +4,10 @@ from algoritmos.b_profundidad import *
 from interfaz_g import pantalla
 
 def construir_grafo(nombre_archivo):
-    #laberintos = []
+    laberintos = []
 
     with open(nombre_archivo, "r") as archivo:
-        i = 1
+        num_lab = 1
         while True:
             
             linea = archivo.readline().strip()
@@ -56,13 +56,30 @@ def construir_grafo(nombre_archivo):
             
             costo_camino_ucs, camino_ucs = busqueda_costo_uniforme(nodo_inicio, nodo_destino)
             costo_camino_dfs, camino_dfs = busqueda_profundidad(nodo_inicio, nodo_destino)
-            print("Laberinto #",i)
-            print("costo camino ucs: ", costo_camino_ucs, "camino_ucs: ", camino_ucs)
-            print("costo camino dfs: ", costo_camino_dfs, "camino_dfs: ", camino_dfs)
-            i += 1
-            """ if camino:
-                print(camino)
-                #pantalla.iniciar_pantalla()
-            else:
-                print("No hay solución") """
+
+            mejor_camino = None
+            mejor_pasos = None
+            
+            if costo_camino_ucs is None and costo_camino_dfs is None:
+                mejor_camino = None
+                mejor_pasos = None
+            if costo_camino_dfs is None:
+                mejor_camino = camino_ucs
+                mejor_pasos = costo_camino_ucs
+            elif costo_camino_ucs is None:
+                mejor_camino = camino_dfs
+                mejor_pasos = costo_camino_dfs
+            elif costo_camino_dfs < costo_camino_ucs:
+                mejor_camino = camino_dfs
+                mejor_pasos = costo_camino_dfs
+            else: #cuando ucs < dfs
+                mejor_camino = camino_ucs
+                mejor_pasos = costo_camino_ucs
+
+            #print("costo camino ucs: ", costo_camino_ucs, "camino_ucs: ", camino_ucs)
+            #print("costo camino dfs: ", costo_camino_dfs, "camino_dfs: ", camino_dfs)
+            laberintos.append((matriz, mejor_camino, mejor_pasos, nodo_inicio, nodo_destino, num_lab))
+            num_lab += 1
+    
+    return laberintos
   
