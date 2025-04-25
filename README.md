@@ -14,7 +14,10 @@ En la carpeta algoritmos se encuentran dos métodos de búsqueda: DFS y UCS.
 En la carpeta interfaz_g se encuentra la implementación gráfica de los laberintos
 
 
-Para ejecutar el programa, es necesario tener instalado python. Revisar el archivo requirements.txt para las librerías:
+Antes de ejecutar el programa es necesario instalar python, y luego instalar las librerias y dependecias con:
+pip install -r requirements.txt
+
+Para ejecutar el programa:
 python main.py
 
 En el archivo laberintos.txt se encuentran los laberintos de input.
