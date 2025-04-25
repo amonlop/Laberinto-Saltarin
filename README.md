@@ -10,7 +10,11 @@ que el número de celdas a mover no sobrepasa alguno de los límites del laberin
 objetivo del laberinto saltarín es encontrar el camino más corto, es decir, la menor cantidad
 de movimientos desde la celda inicial hasta la celda de destino.
 
-Para ejecutar el programa:
+En la carpeta algoritmos se encuentran dos métodos de búsqueda: DFS y UCS.
+En la carpeta interfaz_g se encuentra la implementación gráfica de los laberintos
+
+
+Para ejecutar el programa, es necesario tener instalado python. Revisar el archivo requirements.txt para las librerías:
 python main.py
 
 En el archivo laberintos.txt se encuentran los laberintos de input.
